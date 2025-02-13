@@ -45,7 +45,9 @@ public:
 	FTimerHandle LevelTimerHandle;
 	FTimerHandle WaveTimerHandle;
 	FTimerHandle HUDUpdateTimerHandle;
-	FTimerHandle SlowTimerHandle;
+	
+	TMap<FName, FTimerHandle> SlowTimerHandles;
+	FName RecentlyActivatedSlowingItemName;
 
 public:
 	virtual void BeginPlay() override;
@@ -64,4 +66,7 @@ public:
 	void EndLevel();
 	void ShowWave();
 	void UpdateHUD();
+
+	// 발동된 SlowingItem 중 가장 최근 타이머 추적
+	void GetMostRecentTimerHandle(FName ItemName);
 };

@@ -69,7 +69,10 @@ void ABaseItem::ActivateItem(AActor* Activator)
 				// 일반 포인터는 삭제가 되어도 주소 값은 여전히 같은 주소를 가리킴, 대신 안에 내용물은 없어짐
 				// 그래서 C++에서도 많이 본 것처럼 쓰레기 값이 들어가 있는(삭제된) 주소에 있는 걸 읽을라고하니까 에러 발생
 				// ▶ WeakPtr을 사용해서 해당 객체에 접근을 할 수 있나 없나(삭제가 되었나 안되었나)를 확인하면 문제 없이 동작함
-				if (WeakParticle.IsValid())	WeakParticle->DestroyComponent();
+				if (WeakParticle.IsValid())
+				{
+					WeakParticle->DestroyComponent();
+				}
 			},
 			2.0f,
 			false

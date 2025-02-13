@@ -26,6 +26,7 @@ AMyGameState::AMyGameState()
 	CurrentLevelIndex = 0;
 	MaxLevels = 3;
 	
+	RecentlyActivatedSlowingItemName = TEXT("");
 }
 
 void AMyGameState::BeginPlay()
@@ -308,10 +309,15 @@ void AMyGameState::UpdateHUD()
 				{
 					if (AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)))
 					{
-						float RemainingTime = GetWorldTimerManager().GetTimerRemaining(SlowTimerHandle);
-						if (RemainingTime < 0.0f)
+						float RemainingTime = 0.0f;
+
+						if (SlowTimerHandles.Num() > 0)
 						{
-							RemainingTime = 0.0f;
+							RemainingTime = GetWorldTimerManager().GetTimerRemaining(SlowTimerHandles[RecentlyActivatedSlowingItemName]);
+							if (RemainingTime < 0.0f)
+							{
+								RemainingTime = 0.0f;
+							}
 						}
 
 						if (PlayerCharacter->SlowDebuffStack <= 0)
@@ -322,6 +328,7 @@ void AMyGameState::UpdateHUD()
 						{
 							SlowStackText->SetVisibility(ESlateVisibility::Visible);
 						}
+						
 
 						SlowStackText->SetText(FText::FromString(FString::Printf(TEXT("Slow x %d (%.1f)"), PlayerCharacter->SlowDebuffStack, RemainingTime)));
 					}
@@ -329,4 +336,10 @@ void AMyGameState::UpdateHUD()
 			}
 		}
 	}
+}
+
+void AMyGameState::GetMostRecentTimerHandle(FName ItemName)
+{
+	RecentlyActivatedSlowingItemName = ItemName;
+	SlowTimerHandles.Add(ItemName);
 }
