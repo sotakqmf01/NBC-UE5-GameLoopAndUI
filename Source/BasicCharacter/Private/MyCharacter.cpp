@@ -29,7 +29,7 @@ AMyCharacter::AMyCharacter()
 
 	SpringArmComp->TargetArmLength = 300.0f;
 	SpringArmComp->SetRelativeLocation(FVector(0.0f, 0.0f, 150.0f));
-	SpringArmComp->bUsePawnControlRotation = true;		// Character°¡ ¾Æ´Ï¶ó [PlayerControllerÀÇ È¸Àü]À» µû¸£°Ú´Ù
+	SpringArmComp->bUsePawnControlRotation = true;		// Characterê°€ ì•„ë‹ˆë¼ [PlayerControllerì˜ íšŒì „]ì„ ë”°ë¥´ê² ë‹¤
 
 	CameraComp->SetRelativeRotation(FRotator(-20.0f, 0.0f, 0.0f));
 	CameraComp->bUsePawnControlRotation = false;
@@ -37,9 +37,9 @@ AMyCharacter::AMyCharacter()
 	//OverHeadWidgetComp->SetWidgetSpace(EWidgetSpace::Screen);
 	OverHeadWidgetHPBarComp->SetWidgetSpace(EWidgetSpace::Screen);
 
-	// Å¬·¡½º¸¦ Ã£¾Æ¾ß ÇÏ´Ï±î FObjectFinder<> ´ë½Å FClassFinder<> »ç¿ë
-	// Object´Â ±×³É °æ·Î ³ÖÀ¸¸é ‰ç´Âµ¥ Class´Â °æ·Î ³¡¿¡ "_C"¸¦ Ãß°¡ÇØ¾ßÇÔ
-	// ¢º ¤¤¤¤ ºí·çÇÁ¸°Æ®ÀÇ °æ·Î¸¦ °¡Á®¿Ã ¶§´Â ¸¶Áö¸·¿¡ "_C"¸¦ ºÙ¿©Áà¾ß ÀÎ½ÄÀ» Á¦´ë·Î ÇÏ±â ¶§¹®
+	// í´ë˜ìŠ¤ë¥¼ ì°¾ì•„ì•¼ í•˜ë‹ˆê¹Œ FObjectFinder<> ëŒ€ì‹  FClassFinder<> ì‚¬ìš©
+	// ObjectëŠ” ê·¸ëƒ¥ ê²½ë¡œ ë„£ìœ¼ë©´ ë¬ëŠ”ë° ClassëŠ” ê²½ë¡œ ëì— "_C"ë¥¼ ì¶”ê°€í•´ì•¼í•¨
+	// â–¶ ã„´ã„´ ë¸”ë£¨í”„ë¦°íŠ¸ì˜ ê²½ë¡œë¥¼ ê°€ì ¸ì˜¬ ë•ŒëŠ” ë§ˆì§€ë§‰ì— "_C"ë¥¼ ë¶™ì—¬ì¤˜ì•¼ ì¸ì‹ì„ ì œëŒ€ë¡œ í•˜ê¸° ë•Œë¬¸
 	//static ConstructorHelpers::FClassFinder<UUserWidget> WBP_HP(TEXT("/Game/UI/WBP_HP.WBP_HP_C"));
 	//if (WBP_HP.Succeeded())
 	//{
@@ -64,7 +64,7 @@ AMyCharacter::AMyCharacter()
 
 	SlowDebuffStack = 0;
 
-	// ÅÂ±× Ãß°¡
+	// íƒœê·¸ ì¶”ê°€
 	Tags.Add(TEXT("Player"));
 	Tags.Add(TEXT("JaeHoon"));
 	Tags.Add("Unreal Engine");
@@ -92,23 +92,23 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	{
 		if (AMyPlayerController* PlayerController = Cast<AMyPlayerController>(GetController()))
 		{
-			// ÀÌµ¿
+			// ì´ë™
 			if (PlayerController->MoveAction)
 			{
 				EnhancedInput->BindAction(PlayerController->MoveAction, ETriggerEvent::Triggered, this, &AMyCharacter::Move);
 			}
-			// Á¡ÇÁ
+			// ì í”„
 			if (PlayerController->JumpAction)
 			{
 				EnhancedInput->BindAction(PlayerController->JumpAction, ETriggerEvent::Triggered, this, &AMyCharacter::StartJump);
 				EnhancedInput->BindAction(PlayerController->JumpAction, ETriggerEvent::Completed, this, &AMyCharacter::StopJump);
 			}
-			// ¸¶¿ì½º
+			// ë§ˆìš°ìŠ¤
 			if (PlayerController->LookAction)
 			{
 				EnhancedInput->BindAction(PlayerController->LookAction, ETriggerEvent::Triggered, this, &AMyCharacter::Look);
 			}
-			// ´Ş¸®±â
+			// ë‹¬ë¦¬ê¸°
 			if (PlayerController->SprintAction)
 			{
 				EnhancedInput->BindAction(PlayerController->SprintAction, ETriggerEvent::Triggered, this, &AMyCharacter::StartSprint);
@@ -118,7 +118,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	}
 }
 
-// FInputActionValue´Â UEnhancedInputComponent ¾È¿¡ ÀÖÀ½
+// FInputActionValueëŠ” UEnhancedInputComponent ì•ˆì— ìˆìŒ
 void AMyCharacter::Move(const FInputActionValue& value)
 {
 	if (!Controller) return;
@@ -127,8 +127,8 @@ void AMyCharacter::Move(const FInputActionValue& value)
 
 	if (!FMath::IsNearlyZero(MoveInput.X))
 	{
-		// ³»ºÎÀûÀ¸·Î PawnMovementComponent¿¡ ±¸ÇöµÇ¾î ÀÖ´Â ÇÔ¼ö »ç¿ë
-		// Ä³¸¯ÅÍ¸¦ World ±âÁØÀ¸·Î ÀÌµ¿½ÃÅ´
+		// ë‚´ë¶€ì ìœ¼ë¡œ PawnMovementComponentì— êµ¬í˜„ë˜ì–´ ìˆëŠ” í•¨ìˆ˜ ì‚¬ìš©
+		// ìºë¦­í„°ë¥¼ World ê¸°ì¤€ìœ¼ë¡œ ì´ë™ì‹œí‚´
 		AddMovementInput(GetActorForwardVector(), MoveInput.X);
 	}
 
@@ -142,7 +142,7 @@ void AMyCharacter::StartJump(const FInputActionValue& value)
 {
 	if (value.Get<bool>())
 	{
-		// ³»ºÎÀûÀ¸·Î CharacterMovementComponent¿¡ ±¸ÇöµÇ¾î ÀÖ´Â ÇÔ¼ö »ç¿ë
+		// ë‚´ë¶€ì ìœ¼ë¡œ CharacterMovementComponentì— êµ¬í˜„ë˜ì–´ ìˆëŠ” í•¨ìˆ˜ ì‚¬ìš©
 		Jump();
 	}
 }
@@ -151,7 +151,7 @@ void AMyCharacter::StopJump(const FInputActionValue& value)
 {
 	if (!value.Get<bool>())
 	{
-		// ³»ºÎÀûÀ¸·Î CharacterMovementComponent¿¡ ±¸ÇöµÇ¾î ÀÖ´Â ÇÔ¼ö »ç¿ë
+		// ë‚´ë¶€ì ìœ¼ë¡œ CharacterMovementComponentì— êµ¬í˜„ë˜ì–´ ìˆëŠ” í•¨ìˆ˜ ì‚¬ìš©
 		StopJumping();
 	}
 }
@@ -160,7 +160,7 @@ void AMyCharacter::Look(const FInputActionValue& value)
 {
 	FVector2D LookInput = value.Get<FVector2D>();
 
-	// ³»ºÎÀûÀ¸·Î PlayerController¿¡ ±¸ÇöµÇ¾î ÀÖ´Â ÇÔ¼ö »ç¿ë
+	// ë‚´ë¶€ì ìœ¼ë¡œ PlayerControllerì— êµ¬í˜„ë˜ì–´ ìˆëŠ” í•¨ìˆ˜ ì‚¬ìš©
 	AddControllerYawInput(LookInput.X * MouseSensitivity);
 	AddControllerPitchInput(LookInput.Y * MouseSensitivity);
 }
@@ -196,12 +196,17 @@ void AMyCharacter::DecreaseSpeed(float Slowness)
 void AMyCharacter::IncreaseSpeed(float Slowness)
 {
 	NormalSpeed /= Slowness;
-	SlowDebuffStack--;
+
+	// ìŠ¤íƒ í´ë¨í”„ í•˜ëŠ” ê²Œ ì¢‹ì„ ë“¯
+	if (--SlowDebuffStack < 0)
+	{
+		SlowDebuffStack = 0;
+	}
 }
 
 float AMyCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-	// ActualDamage´Â ¹æ¾î·Â, ³»±¸·Â ÀÌ·±°Å Àû¿ëÇÑ µ¥¹ÌÁö
+	// ActualDamageëŠ” ë°©ì–´ë ¥, ë‚´êµ¬ë ¥ ì´ëŸ°ê±° ì ìš©í•œ ë°ë¯¸ì§€
 	float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 
 	Health = FMath::Clamp(Health - DamageAmount, 0.0f, MaxHealth);

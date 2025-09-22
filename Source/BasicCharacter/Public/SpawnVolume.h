@@ -31,8 +31,8 @@ public:
 
 	FItemSpawnRow* GetRandomItem() const;
 	FVector GetRandomPointInVolume() const;
-	// TSubclassOf<T> : T¸¦ Æ÷ÇÔÇÏ´Â TÀÇ ÇÏÀ§ Å¬·¡½ºµé¸¸ Çã¿ëÇÏ´Â ÅÛÇÃ¸´ Å¬·¡½º
-	//  - TÅ¬·¡½º·Î º¯È¯ÀÌ ¾ÈµÇ¸é nullptr
+	// TSubclassOf<T> : Të¥¼ í¬í•¨í•˜ëŠ” Tì˜ í•˜ìœ„ í´ë˜ìŠ¤ë“¤ë§Œ í—ˆìš©í•˜ëŠ” í…œí”Œë¦¿ í´ë˜ìŠ¤
+	//  - Tí´ë˜ìŠ¤ë¡œ ë³€í™˜ì´ ì•ˆë˜ë©´ nullptr
 	AActor* SpawnItem(TSubclassOf<AActor> ItemClass);
 	
 };

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -18,22 +18,21 @@ class BASICCHARACTER_API IItemInterface
 	GENERATED_BODY()
 
 public:
-	// Áö·Ú, Èú¸µ, ÄÚÀÎ
-	// Èú¸µ, ÄÚÀÎ - ¿À¹ö·¦ - Áï¹ß => (Æ®¸®°Å)
-	// Áö·Ú - ¿À¹ö·¦ - 5ÃÊ µÚ Æø¹ß - ¿À¹ö·¦ÀÌ µÇ¾îÀÖÀ¸¸é - µ¥¹ÌÁö => (¿À¹ö·¦)
+	// ì§€ë¢°, íë§, ì½”ì¸
+	// íë§, ì½”ì¸ - ì˜¤ë²„ë© - ì¦‰ë°œ => (íŠ¸ë¦¬ê±°)
+	// ì§€ë¢° - ì˜¤ë²„ë© - 5ì´ˆ ë’¤ í­ë°œ - ì˜¤ë²„ë©ì´ ë˜ì–´ìˆìœ¼ë©´ - ë°ë¯¸ì§€ => (ì˜¤ë²„ë©)
 	
-	// ¿À¹ö·¦ ÀÌº¥Æ®¿¡ ¹ÙÀÎµù µÇ´Â ÇÔ¼ö´Â ¿À¹ö·¦ ÀÌº¥Æ®ÀÇ ÇÔ¼ö ½Ã±×´ÏÃ³(¸Å°³º¯¼ö)¸¦ ¶È°°ÀÌ °¡Áö°í ÀÖ¾î¾ßÇÑ´Ù
+	// ì˜¤ë²„ë© ì´ë²¤íŠ¸ì— ë°”ì¸ë”© ë˜ëŠ” í•¨ìˆ˜ëŠ” ì˜¤ë²„ë© ì´ë²¤íŠ¸ì˜ í•¨ìˆ˜ ì‹œê·¸ë‹ˆì²˜(ë§¤ê°œë³€ìˆ˜)ë¥¼ ë˜‘ê°™ì´ ê°€ì§€ê³  ìˆì–´ì•¼í•œë‹¤
 	UFUNCTION()
 	virtual void OnItemOverlap(
-		UPrimitiveComponent* OverlappedComp,	// ³» ÄÄÆ÷³ÍÆ® Áß overlapÀ» °¨ÁöÇÑ component = SphereComponent
-		AActor* OtherActor,						// SphereComponent¿¡ ºÎµúÈù ¾×ÅÍ
-		UPrimitiveComponent* OtherComp,			// ºÎµúÈù ¾×ÅÍÀÇ component
+		UPrimitiveComponent* OverlappedComp,	// ë‚´ ì»´í¬ë„ŒíŠ¸ ì¤‘ overlapì„ ê°ì§€í•œ component = SphereComponent
+		AActor* OtherActor,						// SphereComponentì— ë¶€ë”ªíŒ ì•¡í„°
+		UPrimitiveComponent* OtherComp,			// ë¶€ë”ªíŒ ì•¡í„°ì˜ component
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult) = 0;
 	UFUNCTION()
-	virtual void OnItemEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, 
-								  int32 OtherBodyIndex) = 0;
+	virtual void OnItemEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex) = 0;
 
 	virtual void ActivateItem(AActor* Activator) = 0;
 	virtual FName GetItemType() const = 0;

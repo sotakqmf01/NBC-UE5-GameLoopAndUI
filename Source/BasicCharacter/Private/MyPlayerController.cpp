@@ -39,16 +39,16 @@ void AMyPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ÇÃ·¹ÀÌ¾î ÄÁÆ®·Ñ·¯µµ ¸¶Âù°¡Áö·Î ·¹º§ÀÌ »ı¼ºµÉ ¶§¸¶´Ù »ı¼ºµÇ°í, ·¹º§ÀÌ ´İÈ÷¸é »ç¶óÁü
-	// ´ÙÀ½ ·¹º§ÀÌ µÇ¸é »õ·Î¿î ÇÃ·¹ÀÌ¾î ÄÁÆ®·Ñ·¯°¡ ¸¸µé¾îÁü
+	// í”Œë ˆì´ì–´ ì»¨íŠ¸ë¡¤ëŸ¬ë„ ë§ˆì°¬ê°€ì§€ë¡œ ë ˆë²¨ì´ ìƒì„±ë  ë•Œë§ˆë‹¤ ìƒì„±ë˜ê³ , ë ˆë²¨ì´ ë‹«íˆë©´ ì‚¬ë¼ì§
+	// ë‹¤ìŒ ë ˆë²¨ì´ ë˜ë©´ ìƒˆë¡œìš´ í”Œë ˆì´ì–´ ì»¨íŠ¸ë¡¤ëŸ¬ê°€ ë§Œë“¤ì–´ì§
 	
-	// PlayerController¿Í ¿¬°áµÇ¾î ÀÖ´Â ÇÃ·¹ÀÌ¾î °¡Á®¿À±â
+	// PlayerControllerì™€ ì—°ê²°ë˜ì–´ ìˆëŠ” í”Œë ˆì´ì–´ ê°€ì ¸ì˜¤ê¸°
 	if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
 	{
-		// ÇØ´ç ÇÃ·¹ÀÌ¾îÀÇ IMC¸¦ °ü¸®ÇÏ´Â SubsystemÀ» °¡Á®¿À±â
+		// í•´ë‹¹ í”Œë ˆì´ì–´ì˜ IMCë¥¼ ê´€ë¦¬í•˜ëŠ” Subsystemì„ ê°€ì ¸ì˜¤ê¸°
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
 		{
-			// IMC¸¦ ÇÒ´ç
+			// IMCë¥¼ í• ë‹¹
 			if (InputMappingContext)
 			{
 				Subsystem->AddMappingContext(InputMappingContext, 0);
@@ -57,10 +57,10 @@ void AMyPlayerController::BeginPlay()
 		}
 	}
 	
-	// ¿¡µğÅÍ°¡ ÄÑÁ³À» ¶§ default mapÀ» MenuLevel·Î ÁöÁ¤ÇØ³ùÀ½
-	// => °ÔÀÓ ½ÇÇà ½Ã Ã¹ È­¸éÀÌ MainMenuUI°¡ ¶ä
-	// => ¸¸¾à ¿¡µğÅÍ¿¡ ÄÑ³õÀº mapÀÌ MenuLevelÀÌ ¾Æ´Ï¸é ¹«½ÃÇÔ
-	// ¸Ç Ã³À½ È­¸éÀº Main Menu, ÀÌÈÄ·Î´Â ¹«½ÃµÉ °ÅÀÓ
+	// ì—ë””í„°ê°€ ì¼œì¡Œì„ ë•Œ default mapì„ MenuLevelë¡œ ì§€ì •í•´ë†¨ìŒ
+	// => ê²Œì„ ì‹¤í–‰ ì‹œ ì²« í™”ë©´ì´ MainMenuUIê°€ ëœ¸
+	// => ë§Œì•½ ì—ë””í„°ì— ì¼œë†“ì€ mapì´ MenuLevelì´ ì•„ë‹ˆë©´ ë¬´ì‹œí•¨
+	// ë§¨ ì²˜ìŒ í™”ë©´ì€ Main Menu, ì´í›„ë¡œëŠ” ë¬´ì‹œë  ê±°ì„
 	FString CurrentMapName = GetWorld()->GetMapName();
 	if (CurrentMapName.Contains("MenuLevel"))
 	{
@@ -68,7 +68,7 @@ void AMyPlayerController::BeginPlay()
 	}
 }
 
-// GameState¿¡¼­ HUD ¾÷µ¥ÀÌÆ® ÇÒ ¶§ ÇÊ¿ä
+// GameStateì—ì„œ HUD ì—…ë°ì´íŠ¸ í•  ë•Œ í•„ìš”
 UUserWidget* AMyPlayerController::GetHUDWidget() const
 {
 	return HUDWidgetInstance;
@@ -77,7 +77,7 @@ UUserWidget* AMyPlayerController::GetHUDWidget() const
 void AMyPlayerController::ShowMainMenu()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Show Main Menu!!"));
-	// ¸Ş´º¸¦ º¸¿©ÁÖ·Á¸é ÇöÀç º¸¿©Áö°í ÀÖ´Â À§Á¬À» Á¦°ÅÇØ¾ßÇÔ
+	// ë©”ë‰´ë¥¼ ë³´ì—¬ì£¼ë ¤ë©´ í˜„ì¬ ë³´ì—¬ì§€ê³  ìˆëŠ” ìœ„ì ¯ì„ ì œê±°í•´ì•¼í•¨
 	if (HUDWidgetInstance)
 	{
 		HUDWidgetInstance->RemoveFromParent();
@@ -96,18 +96,18 @@ void AMyPlayerController::ShowMainMenu()
 		GameOverWidgetInstance = nullptr;
 	}
 
-	// Main Menu À§Á¬ »ı¼º
+	// Main Menu ìœ„ì ¯ ìƒì„±
 	if (MainMenuWidgetClass)
 	{
 		MainMenuWidgetInstance = CreateWidget<UUserWidget>(this, MainMenuWidgetClass);
-		// ºäÆ÷Æ®¿¡ ·»´õ¸µ
+		// ë·°í¬íŠ¸ì— ë Œë”ë§
 		if (MainMenuWidgetInstance)
 		{
 			MainMenuWidgetInstance->AddToViewport();
 
-			// µÚÂÊ¿¡ ÀÖ´Â °ÔÀÓ ½ÇÇà È­¸éÀº ±×´ë·Î ÀÖÀ½
-			// => ¸¶¿ì½º µ¹¸®¸é ¹é±×¶ó¿îµå È­¸é µ¹¾Æ°¨
-			// ÀÌ°É ¹æÁöÇØÁà¾ß ÇÔ
+			// ë’¤ìª½ì— ìˆëŠ” ê²Œì„ ì‹¤í–‰ í™”ë©´ì€ ê·¸ëŒ€ë¡œ ìˆìŒ
+			// => ë§ˆìš°ìŠ¤ ëŒë¦¬ë©´ ë°±ê·¸ë¼ìš´ë“œ í™”ë©´ ëŒì•„ê°
+			// ì´ê±¸ ë°©ì§€í•´ì¤˜ì•¼ í•¨
 			bShowMouseCursor = true;
 			SetInputMode(FInputModeUIOnly());
 
@@ -118,7 +118,7 @@ void AMyPlayerController::ShowMainMenu()
 
 void AMyPlayerController::ShowGameOverMenu(bool bIsClear)
 {
-	// ¸Ş´º¸¦ º¸¿©ÁÖ·Á¸é ÇöÀç º¸¿©Áö°í ÀÖ´Â À§Á¬À» Á¦°ÅÇØ¾ßÇÔ
+	// ë©”ë‰´ë¥¼ ë³´ì—¬ì£¼ë ¤ë©´ í˜„ì¬ ë³´ì—¬ì§€ê³  ìˆëŠ” ìœ„ì ¯ì„ ì œê±°í•´ì•¼í•¨
 	if (HUDWidgetInstance)
 	{
 		HUDWidgetInstance->RemoveFromParent();
@@ -137,25 +137,27 @@ void AMyPlayerController::ShowGameOverMenu(bool bIsClear)
 		GameOverWidgetInstance = nullptr;
 	}
 
-	// Game Over À§Á¬ »ı¼º
+	// Game Over ìœ„ì ¯ ìƒì„±
 	if (GameOverWidgetClass)
 	{
 		GameOverWidgetInstance = CreateWidget<UUserWidget>(this, GameOverWidgetClass);
-		// ºäÆ÷Æ®¿¡ ·»´õ¸µ
+		
+
+		// ë·°í¬íŠ¸ì— ë Œë”ë§
 		if (GameOverWidgetInstance)
 		{
 			GameOverWidgetInstance->AddToViewport();
 
-			// µÚÂÊ¿¡ ÀÖ´Â °ÔÀÓ ½ÇÇà È­¸éÀº ±×´ë·Î ÀÖÀ½
-			// => ¸¶¿ì½º µ¹¸®¸é ¹é±×¶ó¿îµå È­¸é µ¹¾Æ°¨
-			// ÀÌ°É ¹æÁöÇØÁà¾ß ÇÔ
+			// ë’¤ìª½ì— ìˆëŠ” ê²Œì„ ì‹¤í–‰ í™”ë©´ì€ ê·¸ëŒ€ë¡œ ìˆìŒ
+			// => ë§ˆìš°ìŠ¤ ëŒë¦¬ë©´ ë°±ê·¸ë¼ìš´ë“œ í™”ë©´ ëŒì•„ê°
+			// ì´ê±¸ ë°©ì§€í•´ì¤˜ì•¼ í•¨
 			bShowMouseCursor = true;
 			SetInputMode(FInputModeUIOnly());
 
 			GameOverWidgetInstance->SetUserFocus(this);
 		}
 
-		// Å¬¸®¾î ¿©ºÎ¿¡ µû¸¥ ÅØ½ºÆ® Ãâ·Â
+		// í´ë¦¬ì–´ ì—¬ë¶€ì— ë”°ë¥¸ í…ìŠ¤íŠ¸ ì¶œë ¥
 		if (bIsClear)
 		{
 			if (UTextBlock* GameOverText = Cast<UTextBlock>(GameOverWidgetInstance->GetWidgetFromName(TEXT("GameOverText"))))
@@ -171,7 +173,7 @@ void AMyPlayerController::ShowGameOverMenu(bool bIsClear)
 			}
 		}
 
-		// UI ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
+		// UI ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
 		UFunction* PlayAnimFunc = GameOverWidgetInstance->FindFunction(FName("PlayGameOverAnim"));
 
 		if (PlayAnimFunc)
@@ -193,7 +195,7 @@ void AMyPlayerController::ShowGameOverMenu(bool bIsClear)
 void AMyPlayerController::ShowGameHUD()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Show GameHUD"));
-	// ¸Ş´º¸¦ º¸¿©ÁÖ·Á¸é ÇöÀç º¸¿©Áö°í ÀÖ´Â À§Á¬À» Á¦°ÅÇØ¾ßÇÔ
+	// ë©”ë‰´ë¥¼ ë³´ì—¬ì£¼ë ¤ë©´ í˜„ì¬ ë³´ì—¬ì§€ê³  ìˆëŠ” ìœ„ì ¯ì„ ì œê±°í•´ì•¼í•¨
 	if (HUDWidgetInstance)
 	{
 		HUDWidgetInstance->RemoveFromParent();
@@ -206,11 +208,11 @@ void AMyPlayerController::ShowGameHUD()
 		MainMenuWidgetInstance = nullptr;
 	}
 
-	// HUD À§Á¬ »ı¼º
+	// HUD ìœ„ì ¯ ìƒì„±
 	if (HUDWidgetClass)
 	{
 		HUDWidgetInstance = CreateWidget<UUserWidget>(this, HUDWidgetClass);
-		// ºäÆ÷Æ®¿¡ ·»´õ¸µ
+		// ë·°í¬íŠ¸ì— ë Œë”ë§
 		if (HUDWidgetInstance)
 		{
 			HUDWidgetInstance->AddToViewport();
@@ -228,19 +230,19 @@ void AMyPlayerController::ShowGameHUD()
 	}
 }
 
-// ¹öÆ° Å¬¸¯ ÀÌº¥Æ®¿¡ ¹ÙÀÎµùµÉ ÇÔ¼ö
+// ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ì— ë°”ì¸ë”©ë  í•¨ìˆ˜
 void AMyPlayerController::StartGame()
 {
-	// °ÔÀÓ ½ÃÀÛ/Àç½ÃÀÛ ½Ã Àü¿ª µ¥ÀÌÅÍ ÃÊ±âÈ­
+	// ê²Œì„ ì‹œì‘/ì¬ì‹œì‘ ì‹œ ì „ì—­ ë°ì´í„° ì´ˆê¸°í™”
 	if (UMyGameInstance* MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(this)))
 	{
 		MyGameInstance->CurrentLevelIndex = 0;
 		MyGameInstance->TotalScore = 0;
 	}
 
-	// ¿©±â¼­µµ OpenLevel()ÇÏ¸é GameState::BeginPlay()¶û Ãæµ¹³ª´Â°Å ¾Æ´Ñ°¡?
-	// ¢º ¾Æ´Ô 
-	// ¢º OpenLevel()Àº ·¹º§ »ı¼º(ÀüÈ¯) => GameState »ı¼º => GameState::BeginPlay() È£Ãâ => StartLevel() È£Ãâ = ·¹º§ ÃÊ±âÈ­
+	// ì—¬ê¸°ì„œë„ OpenLevel()í•˜ë©´ GameState::BeginPlay()ë‘ ì¶©ëŒë‚˜ëŠ”ê±° ì•„ë‹Œê°€?
+	// â–¶ ì•„ë‹˜ 
+	// â–¶ OpenLevel()ì€ ë ˆë²¨ ìƒì„±(ì „í™˜) => GameState ìƒì„± => GameState::BeginPlay() í˜¸ì¶œ => StartLevel() í˜¸ì¶œ = ë ˆë²¨ ì´ˆê¸°í™”
 	UGameplayStatics::OpenLevel(GetWorld(), FName("BasicLevel"));
 	//SetPause(false);
 }
@@ -256,7 +258,7 @@ void AMyPlayerController::SetupInputComponent()
 
 	if (UEnhancedInputComponent* EnhancedInput = Cast<UEnhancedInputComponent>(InputComponent))
 	{
-		// Tab Å°
+		// Tab í‚¤
 		if (TapKeyAction)
 		{
 			EnhancedInput->BindAction(TapKeyAction, ETriggerEvent::Started, this, &AMyPlayerController::TabMenu);
@@ -269,15 +271,15 @@ void AMyPlayerController::TabMenu(const FInputActionValue& value)
 	UE_LOG(LogTemp, Warning, TEXT("Tab Menu!!!!!!!!!!!!!!"));
 
 	if (bInGame) {
-		// °ÔÀÓ ÇÃ·¹ÀÌ Áß
+		// ê²Œì„ í”Œë ˆì´ ì¤‘
 		if (bIsTabMenuOff)
 		{
 			bIsTabMenuOff = false;
 
-			// ¹é±×¶ó¿îµå È­¸é ¸ØÃß±â
+			// ë°±ê·¸ë¼ìš´ë“œ í™”ë©´ ë©ˆì¶”ê¸°
 			SetPause(true);
 
-			// MenuInstance ¾øÀ¸´Ï »ı¼º
+			// MenuInstance ì—†ìœ¼ë‹ˆ ìƒì„±
 			if (TabMenuWidgetClass)
 			{
 				TabMenuWidgetInstance = CreateWidget<UUserWidget>(this, TabMenuWidgetClass);
@@ -289,21 +291,21 @@ void AMyPlayerController::TabMenu(const FInputActionValue& value)
 					}
 
 					UE_LOG(LogTemp, Warning, TEXT("Menu ON!"));
-					// ºäÆ÷Æ®¿¡ Menu Ã¢ ºÙÀÌ±â
+					// ë·°í¬íŠ¸ì— Menu ì°½ ë¶™ì´ê¸°
 					TabMenuWidgetInstance->AddToViewport();
 
-					// »ı¼ºÇÑ MenuInstance 
-					// ¸¶¿ì½º Ä¿¼­ º¸¿©ÁÖ±â + input ¸ğµå·Î º¯°æ
-					// ¢º input ¸ğµå·Î ÇÏ´Ï±î ¸¶¿ì½º Å¬¸¯ÇÏ·Á°í ÇÒ ¶§ 
-					// ¢º UIÃ¢ ÇÑ¹ø ´­·¯¼­ focus ¸ÂÃç¾ß ¸¶¿ì½º ÀÔ·ÂÀÌ °¡´ÉÇÔ
-					// ¢º => À§¿¡¼­ SetPause()ÇÏ°í GameAndUI ¸ğµå·Î ¼³Á¤
+					// ìƒì„±í•œ MenuInstance 
+					// ë§ˆìš°ìŠ¤ ì»¤ì„œ ë³´ì—¬ì£¼ê¸° + input ëª¨ë“œë¡œ ë³€ê²½
+					// â–¶ input ëª¨ë“œë¡œ í•˜ë‹ˆê¹Œ ë§ˆìš°ìŠ¤ í´ë¦­í•˜ë ¤ê³  í•  ë•Œ 
+					// â–¶ UIì°½ í•œë²ˆ ëˆŒëŸ¬ì„œ focus ë§ì¶°ì•¼ ë§ˆìš°ìŠ¤ ì…ë ¥ì´ ê°€ëŠ¥í•¨
+					// â–¶ => ìœ„ì—ì„œ SetPause()í•˜ê³  GameAndUI ëª¨ë“œë¡œ ì„¤ì •
 					bShowMouseCursor = true;
 					SetInputMode(FInputModeGameAndUI().SetWidgetToFocus(TabMenuWidgetInstance->TakeWidget()));
 
-					// Menu À§Á¬¿¡¼­ Å°º¸µå ÀÔ·Â ¹Ş±â À§ÇÑ ¼³Á¤
+					// Menu ìœ„ì ¯ì—ì„œ í‚¤ë³´ë“œ ì…ë ¥ ë°›ê¸° ìœ„í•œ ì„¤ì •
 					TabMenuWidgetInstance->bIsFocusable = true;
-					// À§¿¡¼­ SetPause(true)ÇØ¼­ Å°º¸µå°¡ ¾È¸ÔÈ÷±â ¶§¹®¿¡
-					// Menu À§Á¬ÀÌ Å°º¸µå¿¡ focusÇÏµµ·Ï ÇØ¾ß ÀÔ·Â ¹ŞÀ» ¼ö ÀÖÀ½
+					// ìœ„ì—ì„œ SetPause(true)í•´ì„œ í‚¤ë³´ë“œê°€ ì•ˆë¨¹íˆê¸° ë•Œë¬¸ì—
+					// Menu ìœ„ì ¯ì´ í‚¤ë³´ë“œì— focusí•˜ë„ë¡ í•´ì•¼ ì…ë ¥ ë°›ì„ ìˆ˜ ìˆìŒ
 					TabMenuWidgetInstance->SetKeyboardFocus();
 					//TabMenuWidgetInstance->OnKeyDown()
 					//InKeyEvent.GetKey() == EKeys::Tab
@@ -312,7 +314,7 @@ void AMyPlayerController::TabMenu(const FInputActionValue& value)
 		}
 		else
 		{
-			// MenuÃ¢ ÄÑÁ®ÀÖÀ» ¶§ tab ´©¸£¸é ²¨Áöµµ·Ï
+			// Menuì°½ ì¼œì ¸ìˆì„ ë•Œ tab ëˆ„ë¥´ë©´ êº¼ì§€ë„ë¡
 			bIsTabMenuOff = true;
 
 			UE_LOG(LogTemp, Warning, TEXT("Menu OFF!"));
@@ -327,10 +329,10 @@ void AMyPlayerController::TabMenu(const FInputActionValue& value)
 	}
 }
 
-// °ÔÀÓ Á¾·á
+// ê²Œì„ ì¢…ë£Œ
 void AMyPlayerController::ExitGame()
 {
-	//  bIgnorePlatformRestrictions = true :
+	// bIgnorePlatformRestrictions = true :
 	UKismetSystemLibrary::QuitGame(GetWorld(), this, EQuitPreference::Quit, false);
 }
 
@@ -358,7 +360,7 @@ void AMyPlayerController::ExitGame()
 //			}
 //
 //			// UEnhancedInputLocalPlayerSubsystem -> GetPlayerInput() -> UEnhancedPlayerInput -> GetEnhancedActionMappings()
-//			// => ÇöÀç Àû¿ëµÈ IMCµéÀÌ ´ã±ä TArray<FEnhancedActionKeyMapping>¸¦ ¾òÀ» ¼ö ÀÖÀ½
+//			// => í˜„ì¬ ì ìš©ëœ IMCë“¤ì´ ë‹´ê¸´ TArray<FEnhancedActionKeyMapping>ë¥¼ ì–»ì„ ìˆ˜ ìˆìŒ
 //		}
 //	}
 //}

@@ -22,18 +22,21 @@ void ASlowingItem::ActivateItem(AActor* Activator)
 	{
 		if (AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(Activator))
 		{
-			// ¼Óµµ °¨¼Ò
+			// ì†ë„ ê°ì†Œ
 			PlayerCharacter->DecreaseSpeed(Slowness);
 
-			// Áö¼Ó½Ã°£ÀÌ Áö³µÀ» ¶§ ÀÌµ¿¼Óµµ º¹±¸¸¦ À§ÇÑ ÄÚµå
+			// ì§€ì†ì‹œê°„ì´ ì§€ë‚¬ì„ ë•Œ ì´ë™ì†ë„ ë³µêµ¬ë¥¼ ìœ„í•œ ì½”ë“œ
 			TWeakObjectPtr<AMyCharacter> W_PlayerCharacter = PlayerCharacter;
 			float SlownessForLambda = Slowness;
 
 			if (AMyGameState* MyGameState = GetWorld()->GetGameState<AMyGameState>())
 			{
+				// GameStateì— ìˆëŠ” TMapì˜ Keyê°’ìœ¼ë¡œ ì•„ì´í…œì˜ ì´ë¦„ì„ ë„˜ê²¨ì„œ
+				// ì•„ì´í…œ ì´ë¦„ê³¼ ì§ ì§€ì–´ì§„ FTimerHandle ìƒì„±
 				FName ItemName = FName(GetName());
 				MyGameState->GetMostRecentTimerHandle(ItemName);
 
+				// ì•„ì´í…œ ì´ë¦„ê³¼ ì§ ì§€ì–´ì§„ FTimerHandleì„ ì°¸ì¡°
 				FTimerHandle& SlowTimerHandle = MyGameState->SlowTimerHandles[ItemName];
 
 				TWeakObjectPtr<AMyGameState> W_MyGameState = MyGameState;
@@ -47,9 +50,9 @@ void ASlowingItem::ActivateItem(AActor* Activator)
 							W_PlayerCharacter->IncreaseSpeed(SlownessForLambda);
 						}
 
-						// ¾ÆÀÌÅÛÀÇ Áö¼Ó½Ã°£À» ÃßÀûÇÏ±â À§ÇØ ¾ÆÀÌÅÛ ¸¶´Ù TimerHandle¸¦ ¾²´Âµ¥,
-						// ÀÌ Å¸ÀÌ¸Ó°¡ ³¡ÀÌ³ª¸é TimerHandleÀÌ ÇÊ¿ä°¡ ¾ø¾îÁö°í ¸Ş¸ğ¸® ³¶ºñ¸¦ ÇÏ°Ô µÇ´Âµ¥
-						// ÀÌ°É ¾îµğ¼­ ¾î¶»°Ô Ã³¸®ÇØ¾ßÇÒ±î¿¡ ´ëÇÑ °í¹ÎÀÌ ÀÖ¾ú´Âµ¥ ±×³É ÀÌ ¶÷´Ù ÇÔ¼ö ¿¡¼­ Ã³¸®ÇÏ¸é µÇ´Â °ÍÀÌ¾ú´Ù..
+						// ì•„ì´í…œì˜ ì§€ì†ì‹œê°„ì„ ì¶”ì í•˜ê¸° ìœ„í•´ ì•„ì´í…œ ë§ˆë‹¤ TimerHandleë¥¼ ì“°ëŠ”ë°,
+						// ì´ íƒ€ì´ë¨¸ê°€ ëì´ë‚˜ë©´ TimerHandleì´ í•„ìš”ê°€ ì—†ì–´ì§€ê³  ë©”ëª¨ë¦¬ ë‚­ë¹„ë¥¼ í•˜ê²Œ ë˜ëŠ”ë°
+						// ì´ê±¸ ì–´ë””ì„œ ì–´ë–»ê²Œ ì²˜ë¦¬í•´ì•¼í• ê¹Œì— ëŒ€í•œ ê³ ë¯¼ì´ ìˆì—ˆëŠ”ë° ê·¸ëƒ¥ ì´ ëŒë‹¤ í•¨ìˆ˜ ì—ì„œ ì²˜ë¦¬í•˜ë©´ ë˜ëŠ” ê²ƒì´ì—ˆë‹¤..
 						if (W_MyGameState.IsValid())
 						{
 							W_MyGameState->SlowTimerHandles.Remove(ItemName);
@@ -63,5 +66,3 @@ void ASlowingItem::ActivateItem(AActor* Activator)
 		DestroyItem();
 	}
 }
-
-

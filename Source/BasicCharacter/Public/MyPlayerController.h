@@ -36,7 +36,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input|IA")
 	UInputAction* TapKeyAction;
 
-	// UI À§Á¬
+	// UI ìœ„ì ¯
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
 	TSubclassOf<UUserWidget> HUDWidgetClass;
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "HUD")
@@ -81,6 +81,6 @@ public:
 	void StartMainMenu();
 	UFUNCTION(BlueprintCallable, Category = "Menu")
 	void TabMenu(const FInputActionValue& value);
-
-	void ExitGame();	// °ÔÀÓ Á¾·á
+	UFUNCTION(BlueprintCallable, Category = "Menu")
+	void ExitGame();	// ê²Œìž„ ì¢…ë£Œ
 };

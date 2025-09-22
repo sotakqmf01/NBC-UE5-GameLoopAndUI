@@ -33,27 +33,32 @@ void AMyGameState::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// LoadMap ÀÌÀü¿¡ ¹ß»ıÇÏ´Â ¸ğµç ÀÏÀº ÇÁ·Î¼¼½ºÀÇ ¼ö¸í°ú ¿¬°áµÇ¾î ÀÖ½À´Ï´Ù.
-	// GameMode, GameState, PlayerController °°Àº ´Ù¸¥ ¸ğµç °ÍµéÀº Áöµµ°¡ ·ÎµåµÈ ÈÄ¿¡ »ı¼ºµÇ¸ç ÇØ´ç ¸Ê¿¡¼­ ÇÃ·¹ÀÌÇÏ´Â µ¿¾È¿¡¸¸ À¯ÁöµË´Ï´Ù.
-	// Áï, »õ ¸ÊÀ» ¿­°Å³ª, ´Ù¸¥ ¼­¹ö¿¡ ¿¬°áÇÏ°Å³ª ±âº» ¸Ş´º·Î µ¹¾Æ°¡¸é UWorld´Â Á¤¸®µÇ¸ç LoadMapÀÌ È£ÃâµÉ¶§ ¸¸µé¾îÁø ¸ğµç ¿ÀºêÁ§Æ®°¡ »èÁ¦µË´Ï´Ù.
+	// LoadMap ì´ì „ì— ë°œìƒí•˜ëŠ” ëª¨ë“  ì¼ì€ í”„ë¡œì„¸ìŠ¤ì˜ ìˆ˜ëª…ê³¼ ì—°ê²°ë˜ì–´ ìˆìŠµë‹ˆë‹¤.
+	// GameMode, GameState, PlayerController ê°™ì€ ë‹¤ë¥¸ ëª¨ë“  ê²ƒë“¤ì€ ì§€ë„ê°€ ë¡œë“œëœ í›„ì— ìƒì„±ë˜ë©° í•´ë‹¹ ë§µì—ì„œ í”Œë ˆì´í•˜ëŠ” ë™ì•ˆì—ë§Œ ìœ ì§€ë©ë‹ˆë‹¤.
+	// ì¦‰, ìƒˆ ë§µì„ ì—´ê±°ë‚˜, ë‹¤ë¥¸ ì„œë²„ì— ì—°ê²°í•˜ê±°ë‚˜ ê¸°ë³¸ ë©”ë‰´ë¡œ ëŒì•„ê°€ë©´ UWorldëŠ” ì •ë¦¬ë˜ë©° LoadMapì´ í˜¸ì¶œë ë•Œ ë§Œë“¤ì–´ì§„ ëª¨ë“  ì˜¤ë¸Œì íŠ¸ê°€ ì‚­ì œë©ë‹ˆë‹¤.
 	// https://openmynotepad.tistory.com/114
-	// ·¹º§(¸Ê)ÀÌ ÀüÈ¯µÉ ¶§ ¸¶´Ù GameState´Â »õ·Î »ı¼ºµÊ => º¯¼öµé ÃÊ±âÈ­ => BeginPlay() È£ÃâµÊ
+	// ë ˆë²¨(ë§µ)ì´ ì „í™˜ë  ë•Œ ë§ˆë‹¤ GameStateëŠ” ìƒˆë¡œ ìƒì„±ë¨ => ë³€ìˆ˜ë“¤ ì´ˆê¸°í™” => BeginPlay() í˜¸ì¶œë¨
 
-	// °ÔÀÓ ½ÃÀÛÀº ÇöÀç ¿¡µğÅÍ¿¡ ÄÑÁ®ÀÖ´Â ·¹º§ ±âÁØÀ¸·Î ½ÃÀÛ
+	// ê²Œì„ ì‹œì‘ì€ í˜„ì¬ ì—ë””í„°ì— ì¼œì ¸ìˆëŠ” ë ˆë²¨ ê¸°ì¤€ìœ¼ë¡œ ì‹œì‘
 
-	// Menu Level ¿­¿´À» ¶§µµ È£Ãâ µÉ °ÅÀÓ
-	// HUD º¸¿©ÁÖ´Â Áö È®ÀÎ, start wave ·Î±× ¶ß´ÂÁö È®ÀÎ
-	// => ShowGameHUD°¡ ¸ÕÀú È£ÃâµÇ°í ShowMainMenu()°¡ È£ÃâµÊ, Wave ·Î±×µµ ¶ä
-	// ==> Menu LevelÀÌ ¾Æ´Ò ¶§¸¸ ·¹º§ ÃÊ±âÈ­ ÇÏµµ·Ï
+	// Menu Level ì—´ì˜€ì„ ë•Œë„ í˜¸ì¶œ ë  ê±°ì„
+	// HUD ë³´ì—¬ì£¼ëŠ” ì§€ í™•ì¸, start wave ë¡œê·¸ ëœ¨ëŠ”ì§€ í™•ì¸
+	// => ShowGameHUDê°€ ë¨¼ì € í˜¸ì¶œë˜ê³  ShowMainMenu()ê°€ í˜¸ì¶œë¨, Wave ë¡œê·¸ë„ ëœ¸
+	// ==> Menu Levelì´ ì•„ë‹ ë•Œë§Œ ë ˆë²¨ ì´ˆê¸°í™” í•˜ë„ë¡
 	FString CurrentMapName = GetWorld()->GetMapName();
 	if (!CurrentMapName.Contains("MenuLevel"))
 	{
-		// ·¹º§ ÃÊ±âÈ­
+		// ë ˆë²¨ ì´ˆê¸°í™”
 		StartLevel();
 
 		GetWorldTimerManager().SetTimer(HUDUpdateTimerHandle, this, &AMyGameState::UpdateHUD, 0.1f, true);
 	}
 }
+
+//void AMyGameState::OnLoadedActorRemovedFromLevel()
+//{
+//	GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
+//}
 
 int32 AMyGameState::GetScore() const
 {
@@ -73,30 +78,30 @@ void AMyGameState::AddScore(int32 Amount)
 	}
 }
 
-// ·¹º§ »ı¼º
-// ¢º ·¹º§ »ı¼º ¾Æ´Ô - ·¹º§ »ı¼º(ÀüÈ¯)Àº UGameplayStatics::OpenLevel() << ¾ê°¡ ÇÏ´Â °Í
-// ¢º¢º ·¹º§À» »ı¼ºµÇ°í³ª¸é StartLevel()Àº ·¹º§À» ÃÊ±âÈ­½ÃÅ´
+// ë ˆë²¨ ìƒì„±
+// â–¶ ë ˆë²¨ ìƒì„± ì•„ë‹˜ - ë ˆë²¨ ìƒì„±(ì „í™˜)ì€ UGameplayStatics::OpenLevel() << ì–˜ê°€ í•˜ëŠ” ê²ƒ
+// â–¶â–¶ ë ˆë²¨ì„ ìƒì„±ë˜ê³ ë‚˜ë©´ StartLevel()ì€ ë ˆë²¨ì„ ì´ˆê¸°í™”ì‹œí‚´
 void AMyGameState::StartLevel()
 {
 	SpawnedCoinCount = 0;
 	CollectedCoinCount = 0;
 
-	// ·¹º§ ¿ÀÇÂ ½Ã HUD UI¸¦ º¸¿©ÁÜ
+	// ë ˆë²¨ ì˜¤í”ˆ ì‹œ HUD UIë¥¼ ë³´ì—¬ì¤Œ
 	if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
 	{
 		if (AMyPlayerController* MyPlayerController = Cast<AMyPlayerController>(PlayerController))
 		{
-			// ÀÌ À§Ä¡¿¡ ÀÖÀ¸¸é Å¸ÀÌ¸Ó ¼³Á¤ ¾ÆÁ÷ ¾ÈµÇ¾î ÀÖ¾î¼­ Ãâ·Â Á¦´ë·Î ¾ÈµÇ´Â°Å ¾Æ´Ñ°¡?
-			// ¢¹ À§Ä¡´Â ¸ğ¸£°Ú°í StartLevel()¿¡´Â ²À ÀÖ¾î¾ß ÇÔ
-			// ¢¹ PlayerControllerÀÇ BeginPlay()¿¡´Â HUD UI¸¦ º¸¿©ÁÖ´Â ÄÚµå°¡ ¾øÀ½
-			// ¢¹ ¸¸¾à ¿¡µğÅÍ¿¡ MenuLevelÀÌ ¾Æ´Ñ ´Ù¸¥ ·¹º§ÀÌ ¿­·ÁÀÖÀ¸¸é HUD UI°¡ ¾Èº¸ÀÓ
-			// ¢¹ => ·¹º§ ÃÊ±âÈ­ÇÏ´Â StartLevel()¿¡ ÀÖ¾î¾ß ÇÔ
+			// ì´ ìœ„ì¹˜ì— ìˆìœ¼ë©´ íƒ€ì´ë¨¸ ì„¤ì • ì•„ì§ ì•ˆë˜ì–´ ìˆì–´ì„œ ì¶œë ¥ ì œëŒ€ë¡œ ì•ˆë˜ëŠ”ê±° ì•„ë‹Œê°€?
+			// â–· ìœ„ì¹˜ëŠ” ëª¨ë¥´ê² ê³  StartLevel()ì—ëŠ” ê¼­ ìˆì–´ì•¼ í•¨
+			// â–· PlayerControllerì˜ BeginPlay()ì—ëŠ” HUD UIë¥¼ ë³´ì—¬ì£¼ëŠ” ì½”ë“œê°€ ì—†ìŒ
+			// â–· ë§Œì•½ ì—ë””í„°ì— MenuLevelì´ ì•„ë‹Œ ë‹¤ë¥¸ ë ˆë²¨ì´ ì—´ë ¤ìˆìœ¼ë©´ HUD UIê°€ ì•ˆë³´ì„
+			// â–· => ë ˆë²¨ ì´ˆê¸°í™”í•˜ëŠ” StartLevel()ì— ìˆì–´ì•¼ í•¨
 			MyPlayerController->ShowGameHUD();
 			MyPlayerController->bInGame = true;
 		}
 	}
 
-	// Àü¿ª µ¥ÀÌÅÍ¸¦ °¡Áö°í ÀÖ´Â GameInstance¿¡¼­ ÇöÀç level index °¡Á®¿À±â
+	// ì „ì—­ ë°ì´í„°ë¥¼ ê°€ì§€ê³  ìˆëŠ” GameInstanceì—ì„œ í˜„ì¬ level index ê°€ì ¸ì˜¤ê¸°
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
 		UMyGameInstance* MyGameInstance = Cast<UMyGameInstance>(GameInstance);
@@ -108,13 +113,13 @@ void AMyGameState::StartLevel()
 
 	StartWave();
 
-	// Á¦ÇÑ ½Ã°£ Å¸ÀÌ¸Ó ½ÃÀÛ
+	// ì œí•œ ì‹œê°„ íƒ€ì´ë¨¸ ì‹œì‘
 	GetWorldTimerManager().SetTimer(LevelTimerHandle, this, &AMyGameState::OnLevelTimeUp, LevelDuration, false);
 }
 
 void AMyGameState::StartWave()
 {
-	// Á¤ÇØ³õÀº Wave ¼ö ¸¸Å­¸¸ È£ÃâµÇµµ·Ï
+	// ì •í•´ë†“ì€ Wave ìˆ˜ ë§Œí¼ë§Œ í˜¸ì¶œë˜ë„ë¡
 	if (WaveCount >= MaxWaveCount)
 	{
 		GetWorld()->GetTimerManager().ClearTimer(WaveTimerHandle);
@@ -126,7 +131,7 @@ void AMyGameState::StartWave()
 
 	ItemToSpawn += (10 + CurrentLevelIndex) * WaveCount;
 
-	// ¾ÆÀÌÅÛ ½ºÆù
+	// ì•„ì´í…œ ìŠ¤í°
 	TArray<AActor*> FoundVolumes;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASpawnVolume::StaticClass(), FoundVolumes);
 
@@ -137,9 +142,9 @@ void AMyGameState::StartWave()
 			ASpawnVolume* SpawnVolume = Cast<ASpawnVolume>(FoundVolumes[0]);
 			if (SpawnVolume)
 			{
-				// ¾ÆÀÌÅÛ ½ºÆù
+				// ì•„ì´í…œ ìŠ¤í°
 				AActor* SpawnedActor = SpawnVolume->SpawnRandomItem();
-				// ½ºÆùÇÑ ¾ÆÀÌÅÛÀÌ Coin ¾ÆÀÌÅÛÀÎÁö È®ÀÎ
+				// ìŠ¤í°í•œ ì•„ì´í…œì´ Coin ì•„ì´í…œì¸ì§€ í™•ì¸
 				if (SpawnedActor && SpawnedActor->IsA(ACoinItem::StaticClass()))
 				{
 					SpawnedCoinCount++;
@@ -155,7 +160,7 @@ void AMyGameState::StartWave()
 
 void AMyGameState::OnLevelTimeUp()
 {
-	// ÃÖ¼Ò Å¬¸®¾î Á¡¼ö Ãß°¡
+	// ìµœì†Œ í´ë¦¬ì–´ ì ìˆ˜ ì¶”ê°€
 	if (Score >= ClearScore)
 	{
 		EndLevel();
@@ -179,7 +184,7 @@ void AMyGameState::OnCoinCollected()
 
 void AMyGameState::EndLevel()
 {
-	// ´ÙÀ½ ·¹º§·Î ³Ñ¾î°¥ ¶§ Å¸ÀÌ¸Ó ÃÊ±âÈ­
+	// ë‹¤ìŒ ë ˆë²¨ë¡œ ë„˜ì–´ê°ˆ ë•Œ íƒ€ì´ë¨¸ ì´ˆê¸°í™”
 	GetWorldTimerManager().ClearTimer(LevelTimerHandle);
 	CurrentLevelIndex++;
 
@@ -192,7 +197,7 @@ void AMyGameState::EndLevel()
 		}
 	}
 
-	// ¸¶Áö¸· ·¹º§¿¡ µµÂøÇÏ¸é ´ÙÀ½Àº Game Over
+	// ë§ˆì§€ë§‰ ë ˆë²¨ì— ë„ì°©í•˜ë©´ ë‹¤ìŒì€ Game Over
 	if (CurrentLevelIndex >= MaxLevels)
 	{
 		OnGameOver();
@@ -201,7 +206,7 @@ void AMyGameState::EndLevel()
 
 	if (LevelMapNames.IsValidIndex(CurrentLevelIndex))
 	{
-		// ´ÙÀ½ ·¹º§ »ı¼º(ÀüÈ¯) : ±âÁ¸ ·¹º§ Á¦°ÅµÇ°í »õ·Î¿î ·¹º§ ¸Ê ·Îµå
+		// ë‹¤ìŒ ë ˆë²¨ ìƒì„±(ì „í™˜) : ê¸°ì¡´ ë ˆë²¨ ì œê±°ë˜ê³  ìƒˆë¡œìš´ ë ˆë²¨ ë§µ ë¡œë“œ
 		UGameplayStatics::OpenLevel(GetWorld(), LevelMapNames[CurrentLevelIndex]);
 	}
 	else
@@ -212,12 +217,12 @@ void AMyGameState::EndLevel()
 
 void AMyGameState::OnGameOver()
 {
-	// °ÔÀÓ ¿À¹ö ½Ã ¸Ş´º UI º¸¿©ÁÜ
+	// ê²Œì„ ì˜¤ë²„ ì‹œ ë©”ë‰´ UI ë³´ì—¬ì¤Œ
 	if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
 	{
 		if (AMyPlayerController* MyPlayerController = Cast<AMyPlayerController>(PlayerController))
 		{
-			// °ÔÀÓ ¿À¹ö ½Ã ¹é±×¶ó¿îµå¿¡ º¸ÀÌ´Â °ÔÀÓ È­¸é Á¤Áö
+			// ê²Œì„ ì˜¤ë²„ ì‹œ ë°±ê·¸ë¼ìš´ë“œì— ë³´ì´ëŠ” ê²Œì„ í™”ë©´ ì •ì§€
 			MyPlayerController->SetPause(true);
 			if (Score >= ClearScore)
 			{
@@ -228,8 +233,7 @@ void AMyGameState::OnGameOver()
 			{
 				// Game Over
 				MyPlayerController->ShowGameOverMenu(false);
-			}
-			
+			}			
 		}
 	}
 }
@@ -267,14 +271,15 @@ void AMyGameState::UpdateHUD()
 			// WBP_HUD
 			if (UUserWidget* HUDWidget = MyPlayerController->GetHUDWidget())
 			{
-				// [Time] ÅØ½ºÆ® ºí·ÏÀ» °¡Á®¿Í¼­ Ãâ·Â ÅØ½ºÆ® ¼³Á¤
+				// [Time] í…ìŠ¤íŠ¸ ë¸”ë¡ì„ ê°€ì ¸ì™€ì„œ ì¶œë ¥ í…ìŠ¤íŠ¸ ì„¤ì •
 				if (UTextBlock* TimeText = Cast<UTextBlock>(HUDWidget->GetWidgetFromName(TEXT("TimeText"))))
 				{
 					float RemainingTime = GetWorldTimerManager().GetTimerRemaining(LevelTimerHandle);
 					TimeText->SetText(FText::FromString(FString::Printf(TEXT("Time : %.1f"), RemainingTime)));
+					//ButtonText->SetText(FText::FromString(TEXT("Restart")));
 				}
 
-				// [Score] ÅØ½ºÆ® ºí·ÏÀ» °¡Á®¿Í¼­ Ãâ·Â ÅØ½ºÆ® ¼³Á¤
+				// [Score] í…ìŠ¤íŠ¸ ë¸”ë¡ì„ ê°€ì ¸ì™€ì„œ ì¶œë ¥ í…ìŠ¤íŠ¸ ì„¤ì •
 				if (UTextBlock* ScoreText = Cast<UTextBlock>(HUDWidget->GetWidgetFromName(TEXT("ScoreText"))))
 				{
 					if(UGameInstance* GameInstance = GetGameInstance())
@@ -287,7 +292,7 @@ void AMyGameState::UpdateHUD()
 					}
 				}
 
-				// [GoalScore] ÅØ½ºÆ® ºí·ÏÀ» °¡Á®¿Í¼­ Ãâ·Â ÅØ½ºÆ® ¼³Á¤
+				// [GoalScore] í…ìŠ¤íŠ¸ ë¸”ë¡ì„ ê°€ì ¸ì™€ì„œ ì¶œë ¥ í…ìŠ¤íŠ¸ ì„¤ì •
 				if (UTextBlock* GoalScoreText = Cast<UTextBlock>(HUDWidget->GetWidgetFromName(TEXT("GoalScoreText"))))
 				{
 					GoalScoreText->SetText(FText::FromString(FString::Printf(TEXT("Clear : %d / %d"), Score, ClearScore)));
@@ -298,13 +303,13 @@ void AMyGameState::UpdateHUD()
 					}
 				}
 
-				// [Level] ÅØ½ºÆ® ºí·ÏÀ» °¡Á®¿Í¼­ Ãâ·Â ÅØ½ºÆ® ¼³Á¤
+				// [Level] í…ìŠ¤íŠ¸ ë¸”ë¡ì„ ê°€ì ¸ì™€ì„œ ì¶œë ¥ í…ìŠ¤íŠ¸ ì„¤ì •
 				if (UTextBlock* LevelIndexText = Cast<UTextBlock>(HUDWidget->GetWidgetFromName(TEXT("LevelText"))))
 				{
 					LevelIndexText->SetText(FText::FromString(FString::Printf(TEXT("Level : %d"), CurrentLevelIndex + 1)));
 				}
 
-				// [SlowStack] ÅØ½ºÆ® ºí·ÏÀ» °¡Á®¿Í¼­ Ãâ·Â ÅØ½ºÆ® ¼³Á¤
+				// [SlowStack] í…ìŠ¤íŠ¸ ë¸”ë¡ì„ ê°€ì ¸ì™€ì„œ ì¶œë ¥ í…ìŠ¤íŠ¸ ì„¤ì •
 				if (UTextBlock* SlowStackText = Cast<UTextBlock>(HUDWidget->GetWidgetFromName(TEXT("SlowStackText"))))
 				{
 					if (AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)))

@@ -39,9 +39,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Level")
 	int32 MaxLevels;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Level")
-	TArray<FName> LevelMapNames;		// ·¹º§mapÀ» ÀúÀåÇÒ ¹è¿­ 
+	TArray<FName> LevelMapNames;		// ë ˆë²¨mapì„ ì €ì¥í•  ë°°ì—´ 
 
-	// Å¸ÀÌ¸Ó
+	// íƒ€ì´ë¨¸
 	FTimerHandle LevelTimerHandle;
 	FTimerHandle WaveTimerHandle;
 	FTimerHandle HUDUpdateTimerHandle;
@@ -51,6 +51,7 @@ public:
 
 public:
 	virtual void BeginPlay() override;
+	//virtual void OnLoadedActorRemovedFromLevel() override;
 
 	UFUNCTION(BlueprintPure, Category = "Score")
 	int32 GetScore() const;
@@ -67,6 +68,6 @@ public:
 	void ShowWave();
 	void UpdateHUD();
 
-	// ¹ßµ¿µÈ SlowingItem Áß °¡Àå ÃÖ±Ù Å¸ÀÌ¸Ó ÃßÀû
+	// ë°œë™ëœ SlowingItem ì¤‘ ê°€ì¥ ìµœê·¼ íƒ€ì´ë¨¸ ì¶”ì 
 	void GetMostRecentTimerHandle(FName ItemName);
 };

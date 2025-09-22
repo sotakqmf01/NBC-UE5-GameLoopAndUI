@@ -20,14 +20,20 @@ ABaseItem::ABaseItem()
 	StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	StaticMeshComp->SetupAttachment(SphereCollision);
 
-	// ÀÌº¥Æ® ¹ÙÀÎµù
+	// ì´ë²¤íŠ¸ ë°”ì¸ë”©
 	SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &ABaseItem::OnItemOverlap);
 	SphereCollision->OnComponentEndOverlap.AddDynamic(this, &ABaseItem::OnItemEndOverlap);
+	
+	//static ConstructorHelpers::FObjectFinder<UParticleSystem> PickupParticleSystem(TEXT("/Game/Resources/Particles/P_Explosion.P_Explosion"));
+	//if (PickupParticleSystem.Succeeded())
+	//{
+	//	PickupParticle = PickupParticleSystem.Object;
+	//}
 }
 
 void ABaseItem::OnItemOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	// tag´Â ´Ð³×ÀÓ °°Àº °Í
+	// tagëŠ” ë‹‰ë„¤ìž„ ê°™ì€ ê²ƒ
 	if (OtherActor && OtherActor->ActorHasTag("Player"))
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, FString::Printf(TEXT("Overlap!")));
@@ -45,12 +51,12 @@ void ABaseItem::ActivateItem(AActor* Activator)
 	UE_LOG(LogTemp, Warning, TEXT("Name : %x"), *GetName());
 
 	UParticleSystemComponent* Particle = nullptr;
-	// È¹µæ ÀÌÆåÆ®
+	// íšë“ ì´íŽ™íŠ¸
 	if (PickupParticle)
 	{
 		Particle = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), PickupParticle, GetActorLocation(), GetActorRotation(), true);
 	}
-	// È¹µæ »ç¿îµå
+	// íšë“ ì‚¬ìš´ë“œ
 	if (PickupSound)
 	{
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), PickupSound, GetActorLocation());
@@ -66,9 +72,10 @@ void ABaseItem::ActivateItem(AActor* Activator)
 		GetWorld()->GetTimerManager().SetTimer(DestroyParticleTimerHandle,
 			[WeakParticle]()
 			{
-				// ÀÏ¹Ý Æ÷ÀÎÅÍ´Â »èÁ¦°¡ µÇ¾îµµ ÁÖ¼Ò °ªÀº ¿©ÀüÈ÷ °°Àº ÁÖ¼Ò¸¦ °¡¸®Å´, ´ë½Å ¾È¿¡ ³»¿ë¹°Àº ¾ø¾îÁü
-				// ±×·¡¼­ C++¿¡¼­µµ ¸¹ÀÌ º» °ÍÃ³·³ ¾²·¹±â °ªÀÌ µé¾î°¡ ÀÖ´Â(»èÁ¦µÈ) ÁÖ¼Ò¿¡ ÀÖ´Â °É ÀÐÀ»¶ó°íÇÏ´Ï±î ¿¡·¯ ¹ß»ý
-				// ¢º WeakPtrÀ» »ç¿ëÇØ¼­ ÇØ´ç °´Ã¼¿¡ Á¢±ÙÀ» ÇÒ ¼ö ÀÖ³ª ¾ø³ª(»èÁ¦°¡ µÇ¾ú³ª ¾ÈµÇ¾ú³ª)¸¦ È®ÀÎÇÏ¸é ¹®Á¦ ¾øÀÌ µ¿ÀÛÇÔ
+				// ì¼ë°˜ í¬ì¸í„°ëŠ” ì‚­ì œê°€ ë˜ì–´ë„ ì£¼ì†Œ ê°’ì€ ì—¬ì „ížˆ ê°™ì€ ì£¼ì†Œë¥¼ ê°€ë¦¬í‚´, ëŒ€ì‹  ì•ˆì— ë‚´ìš©ë¬¼ì€ ì—†ì–´ì§
+				// ê·¸ëž˜ì„œ C++ì—ì„œë„ ë§Žì´ ë³¸ ê²ƒì²˜ëŸ¼ ì“°ë ˆê¸° ê°’ì´ ë“¤ì–´ê°€ ìžˆëŠ”(ì‚­ì œëœ) ì£¼ì†Œì— ìžˆëŠ” ê±¸ ì½ì„ë¼ê³ í•˜ë‹ˆê¹Œ ì—ëŸ¬ ë°œìƒ
+				// â–¶ WeakPtrì„ ì‚¬ìš©í•´ì„œ í•´ë‹¹ ê°ì²´ì— ì ‘ê·¼ì„ í•  ìˆ˜ ìžˆë‚˜ ì—†ë‚˜(ì‚­ì œê°€ ë˜ì—ˆë‚˜ ì•ˆë˜ì—ˆë‚˜)ë¥¼ í™•ì¸í•˜ë©´ ë¬¸ì œ ì—†ì´ ë™ìž‘í•¨
+				// â–¶â–¶â–¶ - ê·¸ëƒ¥ TObjectPtr<>ì˜ ê²½ìš°ì—ëŠ” ì–´ë–»ê²Œ ë˜ëŠ”ì§€??
 				if (WeakParticle.IsValid())
 				{
 					WeakParticle->DestroyComponent();
