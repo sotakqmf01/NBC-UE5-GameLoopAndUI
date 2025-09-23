@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -9,7 +9,7 @@
 class USpringArmComponent;
 class UCameraComponent;
 class UWidgetComponent;
-struct FInputActionValue;	// IA¿¡¼­ ¼³Á¤ÇÑ Value TypeÀ» ¹Ş±â À§ÇÑ ±¸Á¶Ã¼
+struct FInputActionValue;	// IAì—ì„œ ì„¤ì •í•œ Value Typeì„ ë°›ê¸° ìœ„í•œ êµ¬ì¡°ì²´
 
 UCLASS()
 class BASICCHARACTER_API AMyCharacter : public ACharacter
@@ -20,11 +20,11 @@ public:
 	AMyCharacter();
 
 public:
-	// µğ¹öÇÁ
+	// ë””ë²„í”„
 	int32 SlowDebuffStack;
 
 protected:
-	// ÄÄÆ÷³ÍÆ®
+	// ì»´í¬ë„ŒíŠ¸
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	USpringArmComponent* SpringArmComp;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
@@ -34,7 +34,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
 	UWidgetComponent* OverHeadWidgetHPBarComp;
 
-	// ¼Óµµ
+	// ì†ë„
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Move")
 	float NormalSpeed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Move")
@@ -42,13 +42,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Move")
 	float SprintSpeed;
 
-	// Ã¼·Â
+	// ì²´ë ¥
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
 	float MaxHealth;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
 	float Health;
 
-	// ¸¶¿ì½º ¹Î°¨µµ
+	// ë§ˆìš°ìŠ¤ ë¯¼ê°ë„
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mouse")
 	float MouseSensitivity;
 
@@ -68,11 +68,11 @@ protected:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual float TakeDamage(
-		float DamageAmount,							// µ¥¹ÌÁö·® : Áö·ÚÀÇ ÇÇÇØ·®
-		struct FDamageEvent const& DamageEvent,		// µ¥¹ÌÁöÀÇ À¯Çü : ¼Ó¼º
-		AController* EventInstigator,				// µ¥¹ÌÁöÀÇ ÁÖÃ¼ : Áö·Ú¸¦ ½ÉÀº »ç¶÷
-		AActor* DamageCauser						// µ¥¹ÌÁö ¿øÀÎ : Áö·Ú
-	) override;				
+		float DamageAmount,							// ë°ë¯¸ì§€ëŸ‰ : ì§€ë¢°ì˜ í”¼í•´ëŸ‰
+		struct FDamageEvent const& DamageEvent,		// ë°ë¯¸ì§€ì˜ ìœ í˜• : ì†ì„±
+		AController* EventInstigator,				// ë°ë¯¸ì§€ì˜ ì£¼ì²´ : ì§€ë¢°ë¥¼ ì‹¬ì€ ì‚¬ëŒ
+		AActor* DamageCauser						// ë°ë¯¸ì§€ ì›ì¸ : ì§€ë¢°
+	) override;
 
 	UFUNCTION()
 	void Move(const FInputActionValue& value);

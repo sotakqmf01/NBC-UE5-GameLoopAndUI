@@ -1,4 +1,4 @@
-#include "EnemyAIController.h"
+﻿#include "EnemyAIController.h"
 #include "EnemyCharacter.h"
 #include "Navigation/PathFollowingComponent.h"	// OnMoveCompleted()
 //#include "NavAreas/NavArea_Jump.h"

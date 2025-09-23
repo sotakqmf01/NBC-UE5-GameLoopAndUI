@@ -1,4 +1,4 @@
-#include "EnemyCharacter.h"
+﻿#include "EnemyCharacter.h"
 #include "EnemyAIController.h"
 
 AEnemyCharacter::AEnemyCharacter()

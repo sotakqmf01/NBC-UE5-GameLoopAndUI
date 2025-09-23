@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "MineItem.h"
@@ -18,21 +18,21 @@ AMineItem::AMineItem()
 	ExplosionCollision->InitSphereRadius(ExplosionRadius);
 	ExplosionCollision->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 	ExplosionCollision->SetupAttachment(Scene);
-	
+
 }
 
-// °è¼Ó ¿Ô´Ù°¬´Ù ÇÏ¸é¼­ overlap¹İº¹ÇÏ¸é
-// Timer°¡ µ¤¾î¾²¿©Áö°í µ¤¾î¾²¿©Áü
-// => overlapÀÌ °è¼Ó triggerµÇ¸é Æø¹ß ¾ÈÇÔ
-// ==> BaseItemÀÇ OnItemOverlap() ÇÔ¼ö¸¦ 
+// ê³„ì† ì™”ë‹¤ê°”ë‹¤ í•˜ë©´ì„œ overlapë°˜ë³µí•˜ë©´
+// Timerê°€ ë®ì–´ì“°ì—¬ì§€ê³  ë®ì–´ì“°ì—¬ì§
+// => overlapì´ ê³„ì† triggerë˜ë©´ í­ë°œ ì•ˆí•¨
+// ==> BaseItemì˜ OnItemOverlap() í•¨ìˆ˜ë¥¼ 
 void AMineItem::ActivateItem(AActor* Activator)
 {
 	if (bHasExploded) return;
 
 	Super::ActivateItem(Activator);
 
-	// Explod()¿¡ ¸Å°³º¯¼ö°¡ ¾ø¾î¼­ ÀÌ·¸°Ô »ç¿ë °¡´É
-	// ¸Å°³º¯¼ö°¡ ÀÖÀ¸¸é FTimerDelegate¸¦ ¸¸µé¾î¼­ »ç¿ëÇØ¾ß ÇÔ
+	// Explod()ì— ë§¤ê°œë³€ìˆ˜ê°€ ì—†ì–´ì„œ ì´ë ‡ê²Œ ì‚¬ìš© ê°€ëŠ¥
+	// ë§¤ê°œë³€ìˆ˜ê°€ ìˆìœ¼ë©´ FTimerDelegateë¥¼ ë§Œë“¤ì–´ì„œ ì‚¬ìš©í•´ì•¼ í•¨
 	GetWorld()->GetTimerManager().SetTimer(ExplosionTimerHandle, this, &AMineItem::Explode, ExplosionDelay, false);
 
 	bHasExploded = true;
@@ -53,7 +53,7 @@ void AMineItem::Explode()
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ExplosionSound, GetActorLocation());
 	}
 
-	// Æø¹ß µ¥¹ÌÁö ÀÔÈ÷±â
+	// í­ë°œ ë°ë¯¸ì§€ ì…íˆê¸°
 	TArray<AActor*> OverlappingActors;
 	ExplosionCollision->GetOverlappingActors(OverlappingActors);
 
@@ -73,7 +73,7 @@ void AMineItem::Explode()
 
 		TWeakObjectPtr<UPrimitiveComponent> WeakParticle = Particle;
 
-		GetWorld()->GetTimerManager().SetTimer(DestroyParticleTimerHandle, 
+		GetWorld()->GetTimerManager().SetTimer(DestroyParticleTimerHandle,
 			[WeakParticle]()
 			{
 				if (WeakParticle.IsValid()) WeakParticle->DestroyComponent();

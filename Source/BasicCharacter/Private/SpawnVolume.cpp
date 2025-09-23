@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "SpawnVolume.h"
@@ -13,7 +13,7 @@ ASpawnVolume::ASpawnVolume()
 
 	SpawningBox = CreateDefaultSubobject<UBoxComponent>(TEXT("SpawningBox"));
 	SpawningBox->SetupAttachment(Scene);
-	
+
 	ItemDataTable = nullptr;
 	static ConstructorHelpers::FObjectFinder<UDataTable> DataTable(TEXT("/Game/DataTables/BasicLevelSpawnTable.BasicLevelSpawnTable"));
 	if (DataTable.Succeeded())
@@ -26,7 +26,7 @@ AActor* ASpawnVolume::SpawnRandomItem()
 {
 	if (FItemSpawnRow* SelectedRow = GetRandomItem())
 	{
-		// ·£´ıÇÏ°Ô »ÌÀº µ¥ÀÌÅÍ¸¦ º¸°í ÇØ´ç ¾ÆÀÌÅÛÀÇ ¸ŞÅ¸ µ¥ÀÌÅÍ¸¦ »ı¼º
+		// ëœë¤í•˜ê²Œ ë½‘ì€ ë°ì´í„°ë¥¼ ë³´ê³  í•´ë‹¹ ì•„ì´í…œì˜ ë©”íƒ€ ë°ì´í„°ë¥¼ ìƒì„±
 		if (UClass* ActualClass = SelectedRow->ItemClass.Get())
 		{
 			return SpawnItem(ActualClass);
@@ -36,18 +36,18 @@ AActor* ASpawnVolume::SpawnRandomItem()
 	return nullptr;
 }
 
-// ¾ÆÀÌÅÛ µ¥ÀÌÅÍ Å×ÀÌºí¿¡¼­ ·£´ıÇÑ ¾ÆÀÌÅÛ µ¥ÀÌÅÍ »Ì±â
+// ì•„ì´í…œ ë°ì´í„° í…Œì´ë¸”ì—ì„œ ëœë¤í•œ ì•„ì´í…œ ë°ì´í„° ë½‘ê¸°
 FItemSpawnRow* ASpawnVolume::GetRandomItem() const
 {
-	// µ¥ÀÌÅÍ Å×ÀÌºíÀÌ ¾ø´Â °æ¿ì
+	// ë°ì´í„° í…Œì´ë¸”ì´ ì—†ëŠ” ê²½ìš°
 	if (!ItemDataTable) return nullptr;
 
 	TArray<FItemSpawnRow*> AllRows;
-	static const FString ContextString(TEXT("ItemSpawnContext"));	// µğ¹ö±ë¿¡ »ç¿ëµÇ´Â ¹®ÀÚ¿­, GetAllRows()¸¦ ¾µ ¶§ ÇÊ¿ä
+	static const FString ContextString(TEXT("ItemSpawnContext"));	// ë””ë²„ê¹…ì— ì‚¬ìš©ë˜ëŠ” ë¬¸ìì—´, GetAllRows()ë¥¼ ì“¸ ë•Œ í•„ìš”
 
 	ItemDataTable->GetAllRows(ContextString, AllRows);
 
-	// µ¥ÀÌÅÍ Å×ÀÌºí¿¡ µ¥ÀÌÅÍ°¡ ¾ø´Â °æ¿ì
+	// ë°ì´í„° í…Œì´ë¸”ì— ë°ì´í„°ê°€ ì—†ëŠ” ê²½ìš°
 	if (AllRows.IsEmpty()) return nullptr;
 
 	float TotalChance = 0.0f;
@@ -59,7 +59,7 @@ FItemSpawnRow* ASpawnVolume::GetRandomItem() const
 		}
 	}
 
-	// ´©Àû È®·ü ·£´ı »Ì±â
+	// ëˆ„ì  í™•ë¥  ëœë¤ ë½‘ê¸°
 	const float RandomValue = FMath::FRandRange(0.0f, TotalChance);
 	float AccumulateChance = 0.0f;
 
@@ -77,21 +77,21 @@ FItemSpawnRow* ASpawnVolume::GetRandomItem() const
 
 FVector ASpawnVolume::GetRandomPointInVolume() const
 {
-	// ±âº» Å©±â(200, 100, 50) * Scale(3, 2, 1) => (600, 200, 50)
-	// GetScaledBoxExtent()´Â ½ºÄÉÀÏÀÌ Àû¿ëµÈ ¹Ú½º Å©±âÀÇ Àı¹İ Å©±â¸¦ ¹İÈ¯ => (300, 100, 25)
+	// ê¸°ë³¸ í¬ê¸°(200, 100, 50) * Scale(3, 2, 1) => (600, 200, 50)
+	// GetScaledBoxExtent()ëŠ” ìŠ¤ì¼€ì¼ì´ ì ìš©ëœ ë°•ìŠ¤ í¬ê¸°ì˜ ì ˆë°˜ í¬ê¸°ë¥¼ ë°˜í™˜ => (300, 100, 25)
 	FVector BoxExtent = SpawningBox->GetScaledBoxExtent();
-	// À§Ä¡ = Áß½É
+	// ìœ„ì¹˜ = ì¤‘ì‹¬
 	FVector BoxOrigin = SpawningBox->GetComponentLocation();
 
 	return BoxOrigin + FVector(FMath::FRandRange(-BoxExtent.X, BoxExtent.X),
-								FMath::FRandRange(-BoxExtent.Y, BoxExtent.Y),
-								FMath::FRandRange(-BoxExtent.Z, BoxExtent.Z));
+		FMath::FRandRange(-BoxExtent.Y, BoxExtent.Y),
+		FMath::FRandRange(-BoxExtent.Z, BoxExtent.Z));
 }
 
-// ³Ñ°Ü¹ŞÀº ¸ŞÅ¸µ¥ÀÌÅÍ¸¦ »ç¿ëÇØ¼­ °´Ã¼ ÀÎ½ºÅÏ½º »ı¼º 
-// => µ¿ÀûÀ¸·Î Å¬·¡½º¸¦ »ı¼ºÇÒ ¼ö ÀÖ´Ù´Â°Ô ÀÌ ºÎºĞ °°À½
-// ¢º ½ÇÇà(Runtime) Áß¿¡ ¾î¶² °´Ã¼ÀÇ Å¬·¡½º ¸ŞÅ¸µ¥ÀÌÅÍ¸¦ º¸°í - SpawnRandomItem()
-// ¢º ÇØ´ç °´Ã¼ ÀÎ½ºÅÏ½º¸¦ »ı¼º - SpawnItem(TSubclassOf<AActor> ItemClass)
+// ë„˜ê²¨ë°›ì€ ë©”íƒ€ë°ì´í„°ë¥¼ ì‚¬ìš©í•´ì„œ ê°ì²´ ì¸ìŠ¤í„´ìŠ¤ ìƒì„± 
+// => ë™ì ìœ¼ë¡œ í´ë˜ìŠ¤ë¥¼ ìƒì„±í•  ìˆ˜ ìˆë‹¤ëŠ”ê²Œ ì´ ë¶€ë¶„ ê°™ìŒ
+// â–¶ ì‹¤í–‰(Runtime) ì¤‘ì— ì–´ë–¤ ê°ì²´ì˜ í´ë˜ìŠ¤ ë©”íƒ€ë°ì´í„°ë¥¼ ë³´ê³  - SpawnRandomItem()
+// â–¶ í•´ë‹¹ ê°ì²´ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ìƒì„± - SpawnItem(TSubclassOf<AActor> ItemClass)
 AActor* ASpawnVolume::SpawnItem(TSubclassOf<AActor> ItemClass)
 {
 	if (!ItemClass) return nullptr;

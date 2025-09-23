@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -16,5 +16,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AActor> ItemClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float SpawnChance;	// Ȯ��
+	float SpawnChance;	// 스폰 확률
 };
